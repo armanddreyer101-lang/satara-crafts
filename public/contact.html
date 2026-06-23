@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Satara Crafts</title>
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--cream); color: var(--chocolate); }
+
+    /* ── Navbar ── */
+    .sc-nav {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(249,245,240,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--taupe);
+      padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sc-nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem; font-weight: 600;
+      color: var(--chocolate); text-decoration: none; letter-spacing: .5px;
+    }
+    .sc-nav-logo em { color: var(--gold); font-style: italic; }
+    .sc-nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
+    .sc-nav-links a {
+      font-family: 'Montserrat', sans-serif; font-size: .8rem;
+      font-weight: 400; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--light-chocolate); text-decoration: none;
+      padding: .5rem 1rem; border-radius: 30px; transition: all .25s;
+    }
+    .sc-nav-links a:hover { background: var(--dark-cream); color: var(--chocolate); }
+    .sc-nav-links a.active { color: var(--gold); font-weight: 500; }
+    .sc-nav-links .nav-shop-btn {
+      background: var(--gold); color: #fff !important;
+      padding: .5rem 1.4rem; border-radius: 30px; margin-left: .5rem;
+    }
+    .sc-nav-links .nav-shop-btn:hover { background: var(--dark-gold) !important; }
+    .sc-nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: .5rem; }
+    .sc-nav-toggle span { display: block; width: 24px; height: 2px; background: var(--chocolate); border-radius: 2px; }
+    @media (max-width: 768px) {
+      .sc-nav { padding: 0 1.25rem; }
+      .sc-nav-toggle { display: flex; }
+      .sc-nav-links {
+        position: absolute; top: 68px; left: 0; right: 0;
+        background: rgba(249,245,240,.98); border-bottom: 1px solid var(--taupe);
+        flex-direction: column; align-items: stretch; padding: 1rem 1.25rem 1.5rem;
+        display: none; box-shadow: 0 8px 24px rgba(0,0,0,.06);
+      }
+      .sc-nav-links.open { display: flex; }
+      .sc-nav-links a { padding: .75rem 1rem; }
+      .sc-nav-links .nav-shop-btn { margin: .5rem 0 0; text-align: center; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(rgba(58,46,38,.65), rgba(58,46,38,.65)),
+        url('assets/images/background1.jpg') center/cover no-repeat;
+      min-height: 40vh; display: flex; align-items: center;
+      justify-content: center; text-align: center; padding: 4rem 2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300;
+      color: #fff; margin-bottom: .75rem;
+    }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero p {
+      font-family: 'Montserrat', sans-serif; font-size: 1rem;
+      color: rgba(255,255,255,.85); max-width: 500px; margin: 0 auto;
+      line-height: 1.7; font-weight: 300;
+    }
+
+    /* ── Contact info cards ── */
+    .info-section {
+      background: #fff; padding: 4rem 2rem;
+    }
+    .info-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem; max-width: 960px; margin: 0 auto;
+    }
+    .info-card {
+      background: var(--cream); border-radius: 14px;
+      padding: 2rem 1.5rem; text-align: center;
+      border: 1px solid var(--dark-cream);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .info-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,.06); }
+    .info-card-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--gold); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin: 0 auto 1.25rem;
+    }
+    .info-card h3 {
+      font-size: 1.15rem; font-weight: 500;
+      color: var(--chocolate); margin-bottom: .5rem;
+    }
+    .info-card p, .info-card a {
+      font-family: 'Montserrat', sans-serif; font-size: .875rem;
+      color: var(--light-chocolate); line-height: 1.6;
+      text-decoration: none; display: block;
+    }
+    .info-card a:hover { color: var(--gold); }
+
+    /* ── WhatsApp CTA ── */
+    .wa-cta {
+      background: var(--chocolate); padding: 3.5rem 2rem; text-align: center;
+    }
+    .wa-cta h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 300;
+      color: var(--cream); margin-bottom: .75rem;
+    }
+    .wa-cta h2 em { color: var(--gold); font-style: italic; }
+    .wa-cta p {
+      font-family: 'Montserrat', sans-serif; font-size: .9rem;
+      color: rgba(249,245,240,.7); max-width: 480px;
+      margin: 0 auto 2rem; line-height: 1.7;
+    }
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: #25D366; color: #fff;
+      padding: 1rem 2.25rem; border-radius: 50px;
+      text-decoration: none; font-family: 'Montserrat', sans-serif;
+      font-size: .9rem; font-weight: 500;
+      transition: all .3s; box-shadow: 0 8px 25px rgba(37,211,102,.3);
+    }
+    .btn-wa:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(37,211,102,.45); }
+
+    /* ── Form section ── */
+    .form-section { padding: 5rem 2rem; background: var(--cream); }
+    .form-wrap { max-width: 780px; margin: 0 auto; }
+    .form-header { text-align: center; margin-bottom: 3rem; }
+    .form-header .label {
+      font-family: 'Montserrat', sans-serif; font-size: .72rem;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+      display: block; margin-bottom: .75rem;
+    }
+    .form-header h2 { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 300; }
+    .form-header h2 em { color: var(--gold); font-style: italic; }
+    .gold-line { width: 50px; height: 2px; background: var(--gold); margin: 1.25rem auto 0; }
+
+    .form-card {
+      background: #fff; border-radius: 16px;
+      padding: 2.5rem; box-shadow: 0 8px 40px rgba(0,0,0,.06);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.25rem; }
+    .form-group label {
+      font-family: 'Montserrat', sans-serif; font-size: .82rem;
+      font-weight: 500; color: var(--light-chocolate);
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: .85rem 1rem; border: 1.5px solid var(--taupe);
+      border-radius: 10px; font-family: 'Montserrat', sans-serif;
+      font-size: .9rem; color: var(--chocolate); outline: none;
+      transition: border-color .2s; background: #fff; width: 100%;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-group textarea { min-height: 130px; resize: vertical; }
+    .file-label {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .85rem 1rem; border: 1.5px dashed var(--taupe);
+      border-radius: 10px; cursor: pointer; transition: border-color .2s;
+      font-family: 'Montserrat', sans-serif; font-size: .9rem;
+      color: var(--light-chocolate);
+    }
+    .file-label:hover { border-color: var(--gold); color: var(--gold); }
+    .file-label i { font-size: 1.1rem; }
+    .btn-submit {
+      background: var(--gold); color: #fff; border: none;
+      padding: 1rem 2.5rem; border-radius: 50px; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: .9rem; font-weight: 500;
+      letter-spacing: .5px; transition: all .3s; display: inline-flex;
+      align-items: center; gap: .5rem; width: 100%; justify-content: center;
+    }
+    .btn-submit:hover { background: var(--dark-gold); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(197,162,103,.35); }
+    .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .success-msg {
+      display: none; background: #d4edda; color: #155724;
+      border-radius: 10px; padding: 1rem 1.25rem;
+      font-family: 'Montserrat', sans-serif; font-size: .9rem;
+      margin-top: 1rem; text-align: center;
+    }
+
+    /* ── Footer ── */
+    footer { background: var(--chocolate); color: var(--cream); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 2.5rem;
+    }
+    .footer-brand p { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: rgba(249,245,240,.6); line-height: 1.7; max-width: 280px; }
+    .footer-brand .brand-name { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; display: block; }
+    .footer-brand .brand-name em { color: var(--gold); font-style: italic; }
+    .footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .footer-col a { display: block; font-family: 'Montserrat', sans-serif; font-size: .85rem; color: rgba(249,245,240,.6); text-decoration: none; margin-bottom: .6rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-social { display: flex; gap: .75rem; margin-top: 1.25rem; }
+    .footer-social a { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; color: rgba(249,245,240,.6); transition: all .2s; }
+    .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; justify-content: space-between; font-family: 'Montserrat', sans-serif; font-size: .8rem; color: rgba(249,245,240,.4); flex-wrap: wrap; gap: .75rem; }
+    @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* ── WhatsApp FAB ── */
+    .wa-fab {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 800;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; text-decoration: none;
+      box-shadow: 0 8px 25px rgba(37,211,102,.4);
+      transition: transform .2s;
+    }
+    .wa-fab:hover { transform: scale(1.1); }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="sc-nav" aria-label="Main navigation">
+  <a href="index.html" class="sc-nav-logo">Satara <em>Crafts</em></a>
+  <button class="sc-nav-toggle" aria-label="Toggle menu"
+    onclick="const ul=this.nextElementSibling;ul.classList.toggle('open');this.setAttribute('aria-expanded',ul.classList.contains('open'));">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="sc-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Collections</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="gallery.html" class="nav-shop-btn">Shop Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <h1>Get in <em>Touch</em></h1>
+    <p>Have a question, a custom order request, or need help finding the perfect gift? We'd love to hear from you.</p>
+  </div>
+</section>
+
+<!-- Info Cards -->
+<section class="info-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fab fa-whatsapp"></i></div>
+      <h3>WhatsApp</h3>
+      <a href="https://wa.me/27825716750">+27 82 571 6750</a>
+      <p style="margin-top:.5rem">Quickest way to reach us!</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+      <h3>Email Us</h3>
+      <a href="mailto:bets@sataracrafts.co.za">bets@sataracrafts.co.za</a>
+      <a href="mailto:sexi.betsi@yahoo.com" style="margin-top:.25rem">sexi.betsi@yahoo.com</a>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fas fa-envelope"></i></div>
+      <h3>Email Us</h3>
+      <a href="mailto:bets@sataracrafts.co.za">bets@sataracrafts.co.za</a>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fas fa-clock"></i></div>
+      <h3>Business Hours</h3>
+      <p>Mon–Fri: 09:00–17:00 SAST</p>
+      <p>Sat: 09:00–13:00 SAST</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+      <h3>Location</h3>
+      <p>Cape Town, Western Cape</p><p>South Africa</p><p style="margin-top:.5rem">Nationwide delivery available</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon"><i class="fab fa-instagram"></i></div>
+      <h3>Follow Us</h3>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Pinterest</a>
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp CTA -->
+<section class="wa-cta">
+  <h2>Prefer to Chat on <em>WhatsApp?</em></h2>
+  <p>Most customers find it easiest to just send us a WhatsApp. We respond quickly and can help you find exactly what you're looking for.</p>
+  <a href="https://wa.me/27825716750?text=Hi!%20I%20saw%20your%20Satara%20Crafts%20website%20and%20would%20like%20to%20enquire%20about%20your%20products."
+     class="btn-wa" target="_blank">
+    <i class="fab fa-whatsapp" style="font-size:1.3rem"></i>
+    Chat to Us — +27 82 571 6750
+  </a>
+</section>
+
+<!-- Contact Form -->
+<section class="form-section">
+  <div class="form-wrap">
+    <div class="form-header">
+      <span class="label">Send a Message</span>
+      <h2>Custom Orders & <em>Enquiries</em></h2>
+      <div class="gold-line"></div>
+    </div>
+    <div class="form-card">
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input id="name" name="name" type="text" placeholder="Name & Surname" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Cellphone</label>
+            <input id="phone" name="phone" type="tel" placeholder="+27 ...">
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+              <option value="General enquiry">General enquiry</option>
+              <option value="Custom order">Custom order</option>
+              <option value="Gift advice">Gift advice</option>
+              <option value="Stockist">Stockist enquiry</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="deadline">Deadline (optional)</label>
+            <input id="deadline" name="deadline" type="date">
+          </div>
+          <div class="form-group">
+            <label for="style">Style Notes (optional)</label>
+            <input id="style" name="style" placeholder="Colours, motifs, size…">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Reference Photos (optional)</label>
+          <label class="file-label" for="refs">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span id="fileLabel">Click to attach photos</span>
+          </label>
+          <input id="refs" name="refs" type="file" accept="image/*" multiple style="display:none"
+            onchange="document.getElementById('fileLabel').textContent = this.files.length + ' file(s) selected'">
+        </div>
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Tell us about your idea, question or custom order request…" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+        <div class="success-msg" id="successMsg">
+          <i class="fas fa-check-circle"></i> Thank you! Your message has been received. We'll be in touch shortly.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name">Satara <em>Crafts</em></span>
+        <p>Handcrafted with love in South Africa. Every piece tells a story — find yours in our collection of painted glasses, fatladies, kitchen gifts and more.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          <a href="https://wa.me/27825716750" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Collections</a>
+        <a href="story.html">Our Story</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <a href="https://wa.me/27825716750"><i class="fab fa-whatsapp"></i> +27 82 571 6750</a>
+        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <p style="font-family:'Montserrat',sans-serif;font-size:.8rem;color:rgba(249,245,240,.4);margin-top:.75rem;line-height:1.5">
+          Mon–Fri: 09:00–17:00<br>Sat: 09:00–13:00 SAST
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Satara Crafts. All rights reserved.</span>
+      <span>Handcrafted with ♥ in South Africa</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/27825716750?text=Hi!%20I%20saw%20your%20Satara%20Crafts%20website%20and%20would%20love%20to%20enquire."
+   class="wa-fab" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+const PB = 'https://satara-crafts.pockethost.io';
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+
+  const f = new FormData(e.target);
+  const files = document.getElementById('refs').files;
+
+  // Build FormData for PocketBase
+  const pb = new FormData();
+  pb.append('name',     f.get('name'));
+  pb.append('email',    f.get('email'));
+  pb.append('phone',    f.get('phone') || '');
+  pb.append('subject',  f.get('subject'));
+  pb.append('message',  f.get('message'));
+  pb.append('deadline', f.get('deadline') || '');
+  pb.append('style',    f.get('style') || '');
+  Array.from(files).forEach(file => pb.append('refs', file));
+
+  try {
+    const res = await fetch(`${PB}/api/collections/enquiries/records`, {
+      method: 'POST', body: pb
+    });
+
+    if (res.ok) {
+      document.getElementById('successMsg').style.display = 'block';
+      e.target.reset();
+      document.getElementById('fileLabel').textContent = 'Click to attach photos';
+
+      // Also open WhatsApp with a summary
+      const name    = f.get('name');
+      const subject = f.get('subject');
+      const msg     = `Hi! I just sent an enquiry via the Satara Crafts website.\nName: ${name}\nSubject: ${subject}`;
+      setTimeout(() => {
+        window.open(`https://wa.me/27825716750?text=${encodeURIComponent(msg)}`, '_blank');
+      }, 1500);
+    } else {
+      alert('Something went wrong. Please WhatsApp us directly on +27 82 571 6750');
+    }
+  } catch {
+    alert('Could not send message. Please WhatsApp us on +27 82 571 6750');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+});
+</script>
+</body>
+</html>

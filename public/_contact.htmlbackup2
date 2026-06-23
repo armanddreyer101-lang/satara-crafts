@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | Satara Crafts</title>
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles/styles.css" />
+  <style>
+    .hero {
+      background: linear-gradient(rgba(58,46,38,.7), rgba(58,46,38,.7)),
+        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 45vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--cream);
+      padding: 3rem 1.25rem;
+    }
+    .hero h1 { font-weight: 500; font-size: 3rem; margin: 0; letter-spacing: .5px; }
+    .hero h1 span { color: var(--gold); font-style: italic; }
+    .hero p { font-family: 'Montserrat', sans-serif; max-width: 800px; margin: 1rem auto 0; }
+
+    .section { padding: 3rem 1.25rem; }
+    .container-narrow { max-width: 900px; margin: 0 auto; }
+
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+    .card h3 { margin: 0 0 .5rem 0; color: var(--chocolate); font-weight: 500; }
+    .card p, .card a { font-family:'Montserrat', sans-serif; color: var(--light-chocolate); }
+    .card a { text-decoration: none; }
+    .card a:hover { color: var(--gold); }
+
+    .form { background:#fff; padding: 1.75rem; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+    .form-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    label { display:block; font-family:'Montserrat', sans-serif; font-size:.9rem; color: var(--light-chocolate); margin-bottom:.25rem; }
+    input, textarea {
+      width:100%; padding:.8rem 1rem; border:1px solid #e7e2db; border-radius: 10px;
+      font-family:'Montserrat', sans-serif;
+    }
+    textarea { min-height: 120px; resize: vertical; }
+    .btn { background: var(--gold); color:#fff; border:0; padding:.9rem 1.5rem; border-radius: 30px; cursor: pointer; }
+    .btn:hover { filter: brightness(0.95); }
+
+    /* Footer (match index) */
+    footer { background: var(--dark-cream); padding: 3rem 2rem; text-align: center; margin-top: 2rem; }
+    .footer-logo { font-size: 2rem; font-weight: 500; color: var(--chocolate); margin-bottom: 1.5rem; }
+    .footer-logo span { color: var(--gold); font-style: italic; }
+    .footer-links { display:flex; justify-content:center; gap:2rem; margin-bottom: 2rem; }
+    .footer-links a { color: var(--light-chocolate); text-decoration:none; font-family:'Montserrat',sans-serif; transition: color .3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .social-links { display:flex; justify-content:center; gap:1.25rem; margin-bottom: 2rem; }
+    .social-links a { color: var(--light-chocolate); font-size:1.1rem; transition: color .3s; }
+    .social-links a:hover { color: var(--gold); }
+    .copyright { font-family:'Montserrat',sans-serif; color: var(--light-chocolate); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="luxury-overlay"></div>
+<style>
+  .sc-nav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(249, 245, 240, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--taupe);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .sc-nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 500;
+    color: var(--chocolate); text-decoration: none;
+    letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .sc-nav-logo span { color: var(--gold); font-style: italic; }
+  .sc-nav-links {
+    display: flex; align-items: center; gap: 0.25rem;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .sc-nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--light-chocolate);
+    text-decoration: none; padding: 0.5rem 1rem;
+    border-radius: 30px; transition: color 0.25s ease, background 0.25s ease;
+    position: relative;
+  }
+  .sc-nav-links a:hover { color: var(--chocolate); background: var(--dark-cream); }
+  .sc-nav-links a.active { color: var(--gold); font-weight: 500; }
+  .sc-nav-links a.active::after {
+    content: ''; position: absolute; bottom: 2px; left: 50%;
+    transform: translateX(-50%); width: 20px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+  }
+  .sc-nav-links .nav-shop-btn {
+    background: var(--gold); color: #fff !important;
+    padding: 0.5rem 1.4rem; border-radius: 30px; margin-left: 0.5rem;
+  }
+  .sc-nav-links .nav-shop-btn:hover {
+    background: var(--dark-gold) !important;
+    color: #fff !important; transform: translateY(-1px);
+  }
+  .sc-nav-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px;
+  }
+  .sc-nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--chocolate); border-radius: 2px; transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    .sc-nav { padding: 0 1.25rem; }
+    .sc-nav-toggle { display: flex; }
+    .sc-nav-links {
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: rgba(249, 245, 240, 0.98);
+      border-bottom: 1px solid var(--taupe);
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 1rem 1.25rem 1.5rem; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .sc-nav-links.open { display: flex; }
+    .sc-nav-links a { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; }
+    .sc-nav-links .nav-shop-btn { margin: 0.5rem 0 0; text-align: center; }
+  }
+</style>
+<nav class="sc-nav" aria-label="Main navigation">
+  <a href="index.html" class="sc-nav-logo">Satara <span>Crafts</span></a>
+  <button class="sc-nav-toggle" aria-label="Toggle menu"
+    onclick="const ul=this.nextElementSibling;ul.classList.toggle('open');this.setAttribute('aria-expanded',ul.classList.contains('open'));">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="sc-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Collections</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="gallery.html" class="nav-shop-btn">Shop Now</a></li>
+  </ul>
+</nav>
+<script>
+  (function(){
+    const page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.sc-nav-links a:not(.nav-shop-btn)').forEach(a => {
+      if(a.getAttribute('href') === page || (page==='' && a.getAttribute('href')==='index.html'))
+        a.classList.add('active');
+    });
+  })();
+</script>
+
+  <section class="hero">
+    <div>
+      <h1>Contact <span>Us</span></h1>
+      <p>Have a question, a custom request, or need help choosing a gift? We’d love to hear from you.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow contact-grid">
+      <div class="card">
+        <h3>Business Hours</h3>
+        <p>Mon–Fri: 09:00–17:00 SAST<br>Sat: 09:00–13:00</p>
+      </div>
+      <div class="card">
+        <h3>Follow</h3>
+        <p>
+          <a href="#"><i class="fab fa-instagram"></i> Instagram</a><br>
+          <a href="#"><i class="fab fa-pinterest"></i> Pinterest</a><br>
+          <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+        </p>
+      </div>
+      <div class="card">
+        <h3>Location</h3>
+        <p>South Africa • Worldwide shipping on request</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-narrow">
+      <div class="form">
+        <form id="contactForm">
+  <div class="form-row">
+    <div>
+      <label for="name">Full name</label>
+      <input id="name" name="name" placeholder="Name & Surname" required />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com" required />
+    </div>
+  </div>
+  <div class="form-row">
+    <div>
+      <label for="phone">Cellphone</label>
+      <input id="phone" name="phone" type="tel" placeholder="+27 ..." />
+    </div>
+    <div>
+      <label for="subject">Subject</label>
+      <select id="subject" name="subject">
+        <option>General enquiry</option>
+        <option>Custom order</option>
+        <option>Stockist</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div>
+      <label for="deadline">Deadline (optional)</label>
+      <input id="deadline" name="deadline" type="date" />
+    </div>
+    <div>
+      <label for="style">Style notes</label>
+      <input id="style" name="style" placeholder="Colours, motifs, size…" />
+    </div>
+  </div>
+
+  <div>
+    <label for="refs">Reference photos (optional)</label>
+    <input id="refs" name="refs" type="file" accept="image/*" multiple />
+  </div>
+
+  <div>
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="Tell us about your idea or question..." required></textarea>
+  </div>
+
+  <div style="margin-top:1rem;">
+    <button class="btn" type="submit">Send message</button>
+  </div>
+</form>
+<div id="contactToast" style="display:none; margin-top:1rem; font-family:'Montserrat',sans-serif; color: var(--chocolate);">
+  Thank you! Your request has been received. We’ll reply soon.
+</div>  
+</section>
+
+  <footer>
+    <div class="footer-logo">Satara <span>Crafts</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Collections</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <p class="copyright">&copy; 2025 Satara Crafts. All rights reserved.</p>
+  </footer>
+
+  <script type="module">
+  import { app, db, storage } from './firebase/firebase.js';
+  import { collection, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js';
+  import { getDownloadURL, ref as storageRef, uploadBytes } from 'https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js';
+
+  const form = document.getElementById('contactForm');
+  const toast = document.getElementById('contactToast');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const files = document.getElementById('refs').files;
+    const uploaded = [];
+
+    // upload refs
+    for (const file of files) {
+      const path = `custom-order-refs/${Date.now()}-${file.name}`;
+      const ref = storageRef(storage, path);
+      await uploadBytes(ref, file);
+      const url = await getDownloadURL(ref);
+      uploaded.push({ url, name: file.name, path });
+    }
+
+    await addDoc(collection(db,'customOrders'), {
+      name: f.get('name'), email: f.get('email'), phone: f.get('phone'),
+      subject: f.get('subject'), deadline: f.get('deadline') || null, style: f.get('style') || '',
+      message: f.get('message'),
+      refs: uploaded, createdAt: serverTimestamp()
+    });
+
+    toast.style.display = 'block';
+    form.reset();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satara Crafts Gallery | Artisan Collections</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400&display=swap">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="luxury-overlay"></div>
+<style>
+  .sc-nav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(249, 245, 240, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--taupe);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .sc-nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 500;
+    color: var(--chocolate); text-decoration: none;
+    letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .sc-nav-logo span { color: var(--gold); font-style: italic; }
+  .sc-nav-links {
+    display: flex; align-items: center; gap: 0.25rem;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .sc-nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--light-chocolate);
+    text-decoration: none; padding: 0.5rem 1rem;
+    border-radius: 30px; transition: color 0.25s ease, background 0.25s ease;
+    position: relative;
+  }
+  .sc-nav-links a:hover { color: var(--chocolate); background: var(--dark-cream); }
+  .sc-nav-links a.active { color: var(--gold); font-weight: 500; }
+  .sc-nav-links a.active::after {
+    content: ''; position: absolute; bottom: 2px; left: 50%;
+    transform: translateX(-50%); width: 20px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+  }
+  .sc-nav-links .nav-shop-btn {
+    background: var(--gold); color: #fff !important;
+    padding: 0.5rem 1.4rem; border-radius: 30px; margin-left: 0.5rem;
+  }
+  .sc-nav-links .nav-shop-btn:hover {
+    background: var(--dark-gold) !important;
+    color: #fff !important; transform: translateY(-1px);
+  }
+  .sc-nav-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px;
+  }
+  .sc-nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--chocolate); border-radius: 2px; transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    .sc-nav { padding: 0 1.25rem; }
+    .sc-nav-toggle { display: flex; }
+    .sc-nav-links {
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: rgba(249, 245, 240, 0.98);
+      border-bottom: 1px solid var(--taupe);
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 1rem 1.25rem 1.5rem; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .sc-nav-links.open { display: flex; }
+    .sc-nav-links a { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; }
+    .sc-nav-links .nav-shop-btn { margin: 0.5rem 0 0; text-align: center; }
+  }
+</style>
+<nav class="sc-nav" aria-label="Main navigation">
+  <a href="index.html" class="sc-nav-logo">Satara <span>Crafts</span></a>
+  <button class="sc-nav-toggle" aria-label="Toggle menu"
+    onclick="const ul=this.nextElementSibling;ul.classList.toggle('open');this.setAttribute('aria-expanded',ul.classList.contains('open'));">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="sc-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Collections</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="gallery.html" class="nav-shop-btn">Shop Now</a></li>
+  </ul>
+</nav>
+<script>
+  (function(){
+    const page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.sc-nav-links a:not(.nav-shop-btn)').forEach(a => {
+      if(a.getAttribute('href') === page || (page==='' && a.getAttribute('href')==='index.html'))
+        a.classList.add('active');
+    });
+  })();
+</script>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Collections</h2>
+        <div class="gold-divider"></div>
+      </div>
+      <ul id="category-list">
+        <li data-category="all" class="active">
+          <span>All Creations</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="fatladies">
+          <span>Fatladies</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="gin-glasses">
+          <span>Gin Glasses</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="wine-glasses">
+          <span>Wine Glasses</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="frida-kahlo">
+          <span>Frida Kahlo</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="printed-gifts">
+          <span>Printed Gifts</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="coffee">
+          <span>Coffee Collection</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="kitchen-gifts">
+          <span>Kitchen Gifts</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="hats">
+          <span>Artisan Hats</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+        <li data-category="gift-sets">
+          <span>Luxury Gift Sets</span>
+          <i class="fas fa-chevron-right"></i>
+        </li>
+      </ul>
+      <div class="gold-divider" style="margin:18px 0;"></div>
+
+      <div class="filter-block">
+        <input id="q" placeholder="Search products…" style="width:100%;padding:.6rem 1rem;border:1px solid #e7e2db;border-radius:10px;font-family:'Montserrat',sans-serif;">
+      </div>
+
+      <div class="filter-block" style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:.5rem;">
+        <input id="minPrice" type="number" placeholder="Min R" />
+        <input id="maxPrice" type="number" placeholder="Max R" />
+      </div>
+
+      <div class="filter-block" style="margin-top:12px;">
+        <select id="materialFilter" style="width:100%;padding:.6rem 1rem;border:1px solid #e7e2db;border-radius:10px;">
+          <option value="">All materials</option>
+          <option value="glass">Glass</option>
+          <option value="wood">Wood</option>
+          <option value="textile">Textile</option>
+        </select>
+      </div>
+
+      <div class="filter-block" style="margin-top:12px;">
+        <select id="sortBy" style="width:100%;padding:.6rem 1rem;border:1px solid #e7e2db;border-radius:10px;">
+          <option value="new">Newest first</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name">Name A–Z</option>
+        </select>
+      </div>
+
+      <div class="filter-block" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:.5rem;">
+        <button class="btn-outline" data-pricechip="under-300">Under R300</button>
+        <button class="btn-outline" data-pricechip="300-600">R300–R600</button>
+        <button class="btn-outline" data-pricechip="over-600">Over R600</button>
+        <button class="btn" data-newin>New In</button>
+        <button class="btn-outline" data-limited>Limited</button>
+      </div>
+    </aside>
+    <main class="gallery">
+      <header class="gallery-header">
+        <h1>Satara <span>Crafts</span> Gallery</h1>
+        <p>Handcrafted luxury pieces, each telling a unique story</p>
+      </header>
+      <div id="gallery-grid">
+        <!-- Gallery items injected by JS -->
+      </div>
+    </main>
+  </div>
+  <!-- Floating Cart Button -->
+  <button id="cartOpenBtn" class="cart-fab" aria-label="Open basket">
+    <i class="fas fa-shopping-bag"></i>
+    <span id="cartCount" class="badge">0</span>
+  </button>
+
+  <!-- Slide-in Basket -->
+  <aside id="cartSidebar" class="cart-sidebar" aria-label="Basket">
+    <div class="cart-header">
+      <h3>Your Basket</h3>
+      <button id="cartClose" class="icon-btn" aria-label="Close basket"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="cartItems" class="cart-items"><div class="cart-empty">Your basket is empty.</div></div>
+    <div class="cart-footer">
+      <div class="cart-notice">Your email and cellphone number will appear on the invoice.</div>
+      <button id="checkoutBtn" class="checkout-btn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Checkout Modal -->
+  <div id="checkoutModal" class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="coTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="coTitle" style="margin:0;">Checkout</h3>
+        <button id="coClose" class="icon-btn" aria-label="Close checkout"><i class="fas fa-times"></i></button>
+      </div>
+      <!-- Payment Modal (demo) -->
+      <div id="paymentModal" class="checkout-modal" role="dialog" aria-modal="true" aria-labelledby="payTitle">
+        <div class="modal-card">
+          <div class="modal-head">
+            <h3 id="payTitle" style="margin:0;">Proceed to Payment</h3>
+            <button id="payClose" class="icon-btn" aria-label="Close payment"><i class="fas fa-times"></i></button>
+          </div>
+
+          <div class="modal-body">
+            <!-- Left: order recap -->
+            <section class="order-summary">
+              <h4 style="margin:0 0 .75rem 0;">Order total</h4>
+              <div class="amount" id="payAmount">R0</div>
+              <ul id="payItems" class="pay-items"></ul>
+            </section>
+
+            <!-- Right: fake gateway -->
+            <section class="payment-options">
+              <h4 style="margin:0 0 .75rem 0;">Payment (demo)</h4>
+              <p class="note">Ozow instant EFT will appear here. This is a demo only—no real charges.</p>
+              <button id="paySuccess" class="btn">Simulate Successful Payment</button>
+              <button id="payFail" class="btn-outline">Simulate Failed Payment</button>
+            </section>
+          </div>
+
+          <div class="modal-foot">
+            <button id="payBack" class="btn-outline">Back</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <!-- Left: order summary -->
+        <section class="order-summary">
+          <h4 style="margin:0 0 .75rem 0;">Your Items</h4>
+          <div id="coItems"></div>
+        </section>
+
+        <!-- Right: form -->
+        <form id="checkoutForm" class="checkout-form">
+          <div class="form-row">
+            <div>
+              <label for="fullName">Full name</label>
+              <input id="fullName" name="fullName" placeholder="Name & Surname" required>
+            </div>
+            <div>
+              <label for="phone">Cellphone</label>
+              <input id="phone" name="phone" type="tel" placeholder="+27 ..." required>
+            </div>
+          </div>
+
+          <div class="form-row">
+          <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+            <div>
+              <label for="notes">Notes (optional)</label>
+              <input id="notes" name="notes" placeholder="Colour preferences, deadlines, etc.">
+            </div>
+            </div>
+
+          <div class="toggle">
+            <input id="isCompany" name="isCompany" type="checkbox">
+            <label for="isCompany">Buying as a company? (Add VAT details)</label>
+          </div>
+          <div class="toggle">
+            <input id="giftWrap" name="giftWrap" type="checkbox">
+            <label for="giftWrap">Add gift packaging and a handwritten note</label>
+          </div>
+          <div id="companyFields" style="display:none;">
+            <div class="form-row">
+              <div>
+                <label for="companyName">Company name</label>
+                <input id="companyName" name="companyName" placeholder="Registered company name">
+              </div>
+              <div>
+                <label for="vatNumber">VAT number</label>
+                <input id="vatNumber" name="vatNumber" placeholder="ZA VAT #">
+              </div>
+            </div>
+            <div class="form-row">
+              <div>
+                <label for="regNumber">Company reg. number</label>
+                <input id="regNumber" name="regNumber" placeholder="Registration #">
+              </div>
+              <div>
+                <label for="companyAddress">Company address</label>
+                <input id="companyAddress" name="companyAddress" placeholder="Billing address">
+              </div>
+            </div>
+          </div>
+          <!-- Courier cost acknowledgement -->
+          <div class="toggle">
+            <input id="ackShipping" type="checkbox" required>
+            <label for="ackShipping">
+              I understand prices exclude courier costs and these will be confirmed separately before dispatch.
+            </label>
+          </div>
+          <div class="submit-row">
+            <button type="submit" class="checkout-btn">Submit enquiry / order</button>
+            <span class="note">Your email and cellphone number will appear on the invoice.</span>
+          </div>
+        </form>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-outline" id="coCancel">Cancel</button>
+        <button class="btn" id="coProceed" form="checkoutForm" type="submit">Proceed to Payment</button>
+      </div>
+      <!-- Toast -->
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <!-- Product Detail Modal -->
+  <div id="productModal" class="pm-modal" role="dialog" aria-modal="true" aria-labelledby="pmName" aria-hidden="true">
+    <div class="pm-card">
+      <button id="pmClose" class="pm-close" aria-label="Close">×</button>
+
+      <div class="pm-grid">
+        <!-- Left: images -->
+        <div class="pm-left">
+          <div class="pm-image-wrap">
+            <button class="pm-nav pm-prev" aria-label="Previous image">‹</button>
+            <img id="pmImage" alt="" />
+            <button class="pm-nav pm-next" aria-label="Next image">›</button>
+          </div>
+          <div id="pmThumbs" class="pm-thumbs" aria-label="Image thumbnails"></div>
+        </div>
+
+        <!-- Right: details -->
+        <div class="pm-right">
+          <h3 id="pmName"></h3>
+          <div class="pm-code">Code: <span id="pmCode">—</span></div>
+          <div id="pmPrice" class="pm-price"></div>
+          <p id="pmDesc" class="pm-desc"></p>
+          <div class="pm-ctas">
+            <button id="pmAddToCart" class="btn">Add to basket</button>
+            <button id="pmGoToCheckout" class="btn-outline">Go to checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Satara <span>Crafts</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="gallery.html" aria-current="page">Collections</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    <p class="copyright">&copy; 2025 Satara Crafts. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts/main.js"></script>
+</body>
+</html>

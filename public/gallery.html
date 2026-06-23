@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collections | Satara Crafts</title>
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles/styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Cormorant Garamond', serif; background: var(--cream); color: var(--chocolate); }
+
+    /* ── Navbar ── */
+    .sc-nav {
+      position: sticky; top: 0; z-index: 900;
+      background: rgba(249,245,240,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--taupe);
+      padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sc-nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 600; color: var(--chocolate); text-decoration: none; letter-spacing: .5px; }
+    .sc-nav-logo em { color: var(--gold); font-style: italic; }
+    .sc-nav-links { display: flex; align-items: center; gap: .25rem; list-style: none; }
+    .sc-nav-links a { font-family: 'Montserrat', sans-serif; font-size: .8rem; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--light-chocolate); text-decoration: none; padding: .5rem 1rem; border-radius: 30px; transition: all .25s; position: relative; }
+    .sc-nav-links a:hover { background: var(--dark-cream); color: var(--chocolate); }
+    .sc-nav-links a.active { color: var(--gold); font-weight: 500; }
+    .sc-nav-links a.active::after { content: ''; position: absolute; bottom: 2px; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: var(--gold); border-radius: 2px; }
+    .sc-nav-links .nav-shop-btn { background: var(--gold); color: #fff !important; padding: .5rem 1.4rem; border-radius: 30px; margin-left: .5rem; }
+    .sc-nav-links .nav-shop-btn:hover { background: var(--dark-gold) !important; transform: translateY(-1px); }
+    .sc-nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: .5rem; flex-direction: column; gap: 5px; }
+    .sc-nav-toggle span { display: block; width: 24px; height: 2px; background: var(--chocolate); border-radius: 2px; }
+    @media (max-width: 768px) {
+      .sc-nav { padding: 0 1.25rem; }
+      .sc-nav-toggle { display: flex; }
+      .sc-nav-links { position: absolute; top: 68px; left: 0; right: 0; background: rgba(249,245,240,.98); border-bottom: 1px solid var(--taupe); flex-direction: column; align-items: stretch; padding: 1rem 1.25rem 1.5rem; display: none; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+      .sc-nav-links.open { display: flex; }
+      .sc-nav-links a { padding: .75rem 1rem; }
+      .sc-nav-links .nav-shop-btn { margin: .5rem 0 0; text-align: center; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(rgba(58,46,38,.6), rgba(58,46,38,.6)),
+        url('assets/images/background1.jpg') center/cover no-repeat;
+      min-height: 38vh; display: flex; align-items: center;
+      justify-content: center; text-align: center; padding: 4rem 2rem;
+    }
+    .hero h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; color: #fff; margin-bottom: .75rem; }
+    .hero h1 em { color: var(--gold); font-style: italic; }
+    .hero p { font-family: 'Montserrat', sans-serif; font-size: .95rem; color: rgba(255,255,255,.8); max-width: 480px; margin: 0 auto; line-height: 1.7; font-weight: 300; }
+
+    /* ── Layout ── */
+    .page-body { display: flex; min-height: calc(100vh - 68px); }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: #fff; border-right: 1px solid var(--taupe);
+      padding: 2rem 1.5rem;
+      position: sticky; top: 68px; height: calc(100vh - 68px);
+      overflow-y: auto;
+    }
+    .sidebar-title {
+      font-family: 'Montserrat', sans-serif; font-size: .72rem;
+      letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1rem; display: block;
+    }
+    .gold-divider { height: 1px; background: linear-gradient(90deg, var(--gold), transparent); margin-bottom: 1.25rem; }
+
+    #category-list { list-style: none; margin-bottom: 1.5rem; }
+    #category-list li {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .7rem 1rem; border-radius: 8px; cursor: pointer;
+      font-size: 1rem; color: var(--light-chocolate);
+      transition: all .2s; margin-bottom: .25rem;
+    }
+    #category-list li:hover { background: var(--dark-cream); color: var(--chocolate); transform: translateX(4px); }
+    #category-list li.active { background: var(--dark-cream); color: var(--chocolate); font-weight: 500; border-left: 3px solid var(--gold); }
+    #category-list li i { font-size: .7rem; color: var(--gold); opacity: 0; transition: opacity .2s; }
+    #category-list li:hover i, #category-list li.active i { opacity: 1; }
+
+    .filter-label { font-family: 'Montserrat', sans-serif; font-size: .75rem; font-weight: 500; color: var(--light-chocolate); letter-spacing: 1px; text-transform: uppercase; margin-bottom: .5rem; display: block; margin-top: 1.25rem; }
+    .filter-input {
+      width: 100%; padding: .6rem .9rem; border: 1.5px solid var(--taupe);
+      border-radius: 8px; font-family: 'Montserrat', sans-serif;
+      font-size: .85rem; outline: none; transition: border-color .2s;
+      background: #fff; color: var(--chocolate);
+    }
+    .filter-input:focus { border-color: var(--gold); }
+    .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .75rem; }
+    .chip {
+      padding: .35rem .85rem; border-radius: 20px; font-size: .78rem;
+      font-family: 'Montserrat', sans-serif; cursor: pointer;
+      border: 1px solid var(--taupe); background: transparent;
+      color: var(--light-chocolate); transition: all .2s;
+    }
+    .chip:hover, .chip.active { border-color: var(--gold); color: var(--gold); background: #fdf9f4; }
+
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .sidebar.mobile-open { display: block; position: fixed; top: 68px; left: 0; bottom: 0; z-index: 500; box-shadow: 4px 0 20px rgba(0,0,0,.1); }
+    }
+
+    /* ── Main Gallery ── */
+    .gallery-main { flex: 1; padding: 2.5rem; min-width: 0; }
+
+    .gallery-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;
+    }
+    .gallery-toolbar-left h2 { font-size: 1.75rem; font-weight: 400; }
+    .gallery-toolbar-left h2 em { color: var(--gold); font-style: italic; }
+    .gallery-toolbar-left p { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: var(--light-chocolate); margin-top: .25rem; }
+    .toolbar-right { display: flex; align-items: center; gap: .75rem; }
+    .sort-select { padding: .55rem 1rem; border: 1.5px solid var(--taupe); border-radius: 8px; font-family: 'Montserrat', sans-serif; font-size: .85rem; outline: none; background: #fff; cursor: pointer; }
+    .sort-select:focus { border-color: var(--gold); }
+    .filter-toggle-btn { display: none; background: var(--gold); color: #fff; border: none; padding: .55rem 1rem; border-radius: 8px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: .85rem; gap: .4rem; align-items: center; }
+    @media (max-width: 900px) { .filter-toggle-btn { display: flex; } }
+
+    /* ── Product Grid ── */
+    #gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      background: #fff; border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.05);
+      overflow: hidden; position: relative;
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: pointer;
+    }
+    .gallery-item:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.1); }
+    .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .3s ease; z-index: 1; }
+    .gallery-item:hover::before { transform: scaleX(1); }
+    .gallery-item img { width: 100%; height: 240px; object-fit: cover; transition: transform .4s ease; display: block; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .no-image { width: 100%; height: 240px; background: var(--dark-cream); display: flex; align-items: center; justify-content: center; color: var(--taupe); font-size: 3rem; }
+    .item-info { padding: 1.25rem; }
+    .item-info h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: .35rem; color: var(--chocolate); }
+    .item-price { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--gold); margin-bottom: .35rem; }
+    .item-material { font-family: 'Montserrat', sans-serif; font-size: .78rem; color: var(--light-chocolate); background: var(--dark-cream); padding: .2rem .6rem; border-radius: 10px; display: inline-block; margin-bottom: .85rem; }
+    .enquire-btn {
+      width: 100%; padding: .7rem; border-radius: 30px;
+      background: var(--gold); color: #fff; border: none;
+      font-family: 'Montserrat', sans-serif; font-size: .85rem;
+      cursor: pointer; transition: all .25s; letter-spacing: .3px;
+    }
+    .enquire-btn:hover { background: var(--dark-gold); }
+    .wish-btn { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all .2s; box-shadow: 0 2px 8px rgba(0,0,0,.1); z-index: 2; }
+    .wish-btn:hover { transform: scale(1.15); }
+    .wish-btn.wished { background: #ffdfea; color: #c2185b; }
+    .stock-ribbon { position: absolute; top: 12px; left: 0; background: #e74c3c; color: #fff; padding: .25rem .75rem; font-family: 'Montserrat', sans-serif; font-size: .75rem; font-weight: 500; border-radius: 0 6px 6px 0; z-index: 2; }
+    .gallery-item[data-badge="Limited"]::after { content: 'Limited'; position: absolute; top: 12px; left: 0; background: #8e44ad; color: #fff; padding: .25rem .75rem; font-family: 'Montserrat', sans-serif; font-size: .75rem; font-weight: 500; border-radius: 0 6px 6px 0; z-index: 2; }
+
+    /* Empty / Loading */
+    .empty-state, .loading-state {
+      grid-column: 1 / -1; text-align: center;
+      padding: 5rem 2rem; color: var(--light-chocolate);
+    }
+    .empty-state i, .loading-state i { font-size: 3rem; color: var(--taupe); margin-bottom: 1rem; display: block; }
+    .empty-state p, .loading-state p { font-family: 'Montserrat', sans-serif; font-size: .95rem; line-height: 1.7; }
+    .loading-spinner { width: 40px; height: 40px; border: 3px solid var(--taupe); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Cart FAB ── */
+    .cart-fab { position: fixed; right: 22px; bottom: 22px; width: 56px; height: 56px; border-radius: 50%; border: 0; background: var(--gold); color: #fff; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,.15); display: grid; place-items: center; z-index: 700; transition: transform .2s, background .2s; font-size: 1.2rem; }
+    .cart-fab:hover { background: var(--dark-gold); transform: translateY(-2px); }
+    .badge { position: absolute; top: -6px; right: -6px; min-width: 20px; height: 20px; border-radius: 999px; background: #e74c3c; color: #fff; font: 600 12px/20px 'Montserrat', sans-serif; text-align: center; padding: 0 5px; }
+
+    /* ── Cart Sidebar ── */
+    .cart-sidebar { position: fixed; top: 0; right: 0; height: 100vh; width: 360px; background: #fff; border-left: 1px solid var(--taupe); box-shadow: -12px 0 30px rgba(0,0,0,.08); transform: translateX(105%); transition: transform .3s ease; z-index: 1200; display: flex; flex-direction: column; }
+    .cart-sidebar.open { transform: translateX(0); }
+    .cart-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1rem; border-bottom: 1px solid var(--dark-cream); }
+    .cart-header h3 { margin: 0; font-weight: 500; }
+    .icon-btn { background: transparent; border: 0; cursor: pointer; color: var(--light-chocolate); font-size: 1.1rem; padding: .5rem; border-radius: 8px; }
+    .icon-btn:hover { background: var(--dark-cream); }
+    .cart-items { padding: 1rem; overflow: auto; flex: 1; }
+    .cart-empty { font-family: 'Montserrat', sans-serif; color: var(--light-chocolate); text-align: center; padding: 3rem 1rem; }
+    .cart-item { display: grid; grid-template-columns: 64px 1fr auto; gap: .75rem; align-items: center; padding: .75rem; border: 1px solid #eee; border-radius: 10px; margin-bottom: .75rem; }
+    .cart-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+    .ci-meta { display: grid; gap: .3rem; }
+    .ci-name { font-weight: 500; font-size: .95rem; }
+    .ci-price { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: var(--gold); font-weight: 600; }
+    .ci-variant { font-family: 'Montserrat', sans-serif; font-size: .78rem; color: var(--light-chocolate); }
+    .qty-controls { display: inline-flex; align-items: center; gap: .4rem; margin-top: .25rem; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--taupe); background: #fff; cursor: pointer; font-size: 14px; }
+    .qty { min-width: 20px; text-align: center; font-family: 'Montserrat', sans-serif; font-size: .9rem; }
+    .remove-item { background: transparent; border: 0; color: #ccc; cursor: pointer; font-size: .9rem; }
+    .remove-item:hover { color: #e74c3c; }
+    .cart-total { display: flex; justify-content: space-between; align-items: center; padding: .75rem; border-top: 1px solid var(--dark-cream); font-family: 'Montserrat', sans-serif; font-size: .95rem; }
+    .cart-total strong { color: var(--gold); font-size: 1.1rem; }
+    .cart-footer { border-top: 1px solid var(--dark-cream); padding: 1rem; display: grid; gap: .75rem; }
+    .cart-notice { font-family: 'Montserrat', sans-serif; font-size: .8rem; color: var(--light-chocolate); }
+    .checkout-btn { background: var(--gold); color: #fff; border: 0; border-radius: 30px; padding: .9rem; cursor: pointer; font-family: 'Montserrat', sans-serif; letter-spacing: .5px; font-size: .9rem; transition: background .2s; }
+    .checkout-btn:hover { background: var(--dark-gold); }
+
+    /* ── Checkout Modal ── */
+    .checkout-modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none; z-index: 1300; padding: 2rem; overflow: auto; }
+    .checkout-modal.active { display: block; }
+    .modal-card { background: #fff; max-width: 880px; margin: 0 auto; border-radius: 14px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.2); }
+    .modal-head { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--dark-cream); display: flex; justify-content: space-between; align-items: center; }
+    .modal-body { display: grid; grid-template-columns: 1.1fr .9fr; }
+    @media (max-width: 700px) { .modal-body { grid-template-columns: 1fr; } }
+    .order-summary { padding: 1.25rem 1.5rem; border-right: 1px solid var(--dark-cream); }
+    .co-row { display: grid; grid-template-columns: 56px 1fr auto; gap: .75rem; align-items: center; padding: .5rem 0; border-bottom: 1px solid var(--dark-cream); }
+    .co-row img { width: 56px; height: 56px; object-fit: cover; border-radius: 8px; }
+    .co-name { font-size: .95rem; }
+    .co-qty { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: var(--light-chocolate); white-space: nowrap; }
+    .co-total { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 600; color: var(--gold); margin-top: 1rem; text-align: right; }
+    .checkout-form { padding: 1.25rem 1.5rem; display: grid; gap: .85rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    label { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: var(--light-chocolate); display: block; margin-bottom: .3rem; }
+    input, textarea, select { width: 100%; border: 1.5px solid var(--taupe); background: #fff; border-radius: 10px; padding: .75rem 1rem; font-family: 'Montserrat', sans-serif; font-size: .9rem; outline: none; }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold); }
+    textarea { min-height: 80px; resize: vertical; }
+    .toggle { display: flex; gap: .5rem; align-items: center; }
+    .toggle input { width: auto; }
+    .submit-row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+    .note { font-family: 'Montserrat', sans-serif; font-size: .8rem; color: var(--light-chocolate); }
+    .modal-foot { padding: 1rem 1.5rem; border-top: 1px solid var(--dark-cream); display: flex; justify-content: flex-end; gap: .75rem; }
+    .btn { background: var(--gold); color: #fff; border: none; border-radius: 30px; padding: .75rem 1.25rem; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+    .btn:hover { background: var(--dark-gold); }
+    .btn-outline { border: 1px solid var(--gold); background: transparent; color: var(--gold); border-radius: 30px; padding: .75rem 1.25rem; cursor: pointer; font-family: 'Montserrat', sans-serif; }
+    .btn-outline:hover { background: var(--gold); color: #fff; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+    /* ── Product Modal ── */
+    .pm-modal { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 9999; }
+    .pm-modal.active { display: flex; }
+    .pm-card { position: relative; background: #fff; border-radius: 16px; max-width: 980px; width: 100%; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.25); max-height: 90vh; overflow-y: auto; }
+    .pm-close { position: absolute; top: 12px; right: 14px; border: 0; background: transparent; font-size: 28px; cursor: pointer; color: var(--light-chocolate); z-index: 1; }
+    .pm-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+    @media (max-width: 700px) { .pm-grid { grid-template-columns: 1fr; } }
+    .pm-image-wrap { position: relative; }
+    .pm-image-wrap img { width: 100%; height: 400px; object-fit: cover; border-radius: 12px; background: var(--dark-cream); display: block; }
+    .pm-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(0,0,0,.45); color: #fff; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .pm-prev { left: 8px; } .pm-next { right: 8px; }
+    .pm-thumbs { display: flex; gap: 8px; margin-top: 10px; overflow: auto; padding-bottom: 4px; }
+    .pm-thumb { border: 2px solid transparent; border-radius: 8px; padding: 0; background: none; cursor: pointer; }
+    .pm-thumb.active { border-color: var(--gold); }
+    .pm-thumb img { width: 68px; height: 68px; object-fit: cover; border-radius: 6px; display: block; }
+    .pm-right { display: flex; flex-direction: column; padding-top: .5rem; }
+    .pm-right h3 { font-size: 1.75rem; font-weight: 400; margin-bottom: .35rem; }
+    .pm-code { font-family: 'Montserrat', sans-serif; font-size: .8rem; color: var(--light-chocolate); margin-bottom: .5rem; }
+    .pm-price { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); margin-bottom: .85rem; }
+    .pm-desc { font-family: 'Montserrat', sans-serif; font-size: .9rem; line-height: 1.65; color: var(--light-chocolate); margin-bottom: 1.25rem; flex: 1; }
+    .pm-ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: auto; }
+    .pm-ctas .btn { flex: 1; text-align: center; }
+    .pm-ctas .btn-outline { flex: 1; text-align: center; }
+    .pm-wa { display: flex; align-items: center; justify-content: center; gap: .5rem; background: #25D366; color: #fff; border: none; border-radius: 30px; padding: .75rem 1.25rem; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: .9rem; margin-top: .75rem; width: 100%; transition: background .2s; text-decoration: none; }
+    .pm-wa:hover { background: #1da851; }
+
+    /* ── Toast ── */
+    .toast { position: fixed; left: 50%; bottom: 90px; transform: translateX(-50%) translateY(20px); background: var(--chocolate); color: #fff; padding: .75rem 1.25rem; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-size: .85rem; opacity: 0; z-index: 9999; transition: opacity .25s, transform .25s; white-space: nowrap; }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── WhatsApp FAB ── */
+    .wa-fab { position: fixed; bottom: 90px; right: 22px; width: 50px; height: 50px; border-radius: 50%; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; text-decoration: none; box-shadow: 0 6px 20px rgba(37,211,102,.4); z-index: 600; transition: transform .2s; }
+    .wa-fab:hover { transform: scale(1.1); }
+
+    /* ── Footer ── */
+    footer { background: var(--chocolate); color: var(--cream); padding: 3rem 2rem 2rem; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+    .footer-brand p { font-family: 'Montserrat', sans-serif; font-size: .85rem; color: rgba(249,245,240,.6); line-height: 1.7; max-width: 280px; }
+    .footer-brand .brand-name { font-size: 1.6rem; font-weight: 600; margin-bottom: 1rem; display: block; }
+    .footer-brand .brand-name em { color: var(--gold); font-style: italic; }
+    .footer-col h4 { font-family: 'Montserrat', sans-serif; font-size: .78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .footer-col a { display: block; font-family: 'Montserrat', sans-serif; font-size: .85rem; color: rgba(249,245,240,.6); text-decoration: none; margin-bottom: .6rem; transition: color .2s; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-social { display: flex; gap: .75rem; margin-top: 1.25rem; }
+    .footer-social a { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.15); display: flex; align-items: center; justify-content: center; color: rgba(249,245,240,.6); transition: all .2s; }
+    .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 1.5rem; display: flex; justify-content: space-between; font-family: 'Montserrat', sans-serif; font-size: .8rem; color: rgba(249,245,240,.4); flex-wrap: wrap; gap: .75rem; }
+    @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr; gap: 2rem; } }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="sc-nav" aria-label="Main navigation">
+  <a href="index.html" class="sc-nav-logo">Satara <em>Crafts</em></a>
+  <button class="sc-nav-toggle" aria-label="Toggle menu"
+    onclick="const ul=this.nextElementSibling;ul.classList.toggle('open');this.setAttribute('aria-expanded',ul.classList.contains('open'));">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="sc-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html" class="active">Collections</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="gallery.html" class="nav-shop-btn">Shop Now</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <h1>Our <em>Collections</em></h1>
+    <p>Browse handpainted pieces across all categories — from painted gin glasses to stunning fatladies, each one made with love.</p>
+  </div>
+</section>
+
+<!-- Page Body -->
+<div class="page-body">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <span class="sidebar-title">Browse by Category</span>
+    <div class="gold-divider"></div>
+    <ul id="category-list"></ul>
+    <div class="gold-divider"></div>
+
+    <span class="filter-label">Search</span>
+    <input class="filter-input" id="q" placeholder="Search products…">
+
+    <span class="filter-label">Price Range</span>
+    <div class="price-row">
+      <input class="filter-input" id="minPrice" type="number" placeholder="Min R">
+      <input class="filter-input" id="maxPrice" type="number" placeholder="Max R">
+    </div>
+
+    <span class="filter-label">Material</span>
+    <select class="filter-input" id="materialFilter">
+      <option value="">All materials</option>
+      <option value="glass">Glass</option>
+      <option value="wood">Wood</option>
+      <option value="textile">Textile</option>
+      <option value="ceramic">Ceramic</option>
+      <option value="tin">Tin</option>
+    </select>
+
+    <div class="chip-row">
+      <button class="chip" data-pricechip="under-300">Under R300</button>
+      <button class="chip" data-pricechip="300-600">R300–R600</button>
+      <button class="chip" data-pricechip="over-600">Over R600</button>
+      <button class="chip" data-newin>New In</button>
+      <button class="chip" data-limited>Limited</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="gallery-main">
+    <div class="gallery-toolbar">
+      <div class="gallery-toolbar-left">
+        <h2>All <em>Creations</em></h2>
+        <p id="resultCount">Loading…</p>
+      </div>
+      <div class="toolbar-right">
+        <button class="filter-toggle-btn" onclick="document.getElementById('sidebar').classList.toggle('mobile-open')">
+          <i class="fas fa-sliders-h"></i> Filter
+        </button>
+        <select class="sort-select" id="sortBy">
+          <option value="name">Name A–Z</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+        </select>
+      </div>
+    </div>
+    <div id="gallery-grid"></div>
+  </main>
+</div>
+
+<!-- Cart FAB -->
+<button id="cartOpenBtn" class="cart-fab" aria-label="Open basket">
+  <i class="fas fa-shopping-bag"></i>
+  <span id="cartCount" class="badge">0</span>
+</button>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/27825716750?text=Hi!%20I%20saw%20your%20Satara%20Crafts%20website%20and%20would%20like%20to%20enquire."
+   class="wa-fab" target="_blank" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- Cart Sidebar -->
+<aside id="cartSidebar" class="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Basket</h3>
+    <button id="cartClose" class="icon-btn"><i class="fas fa-times"></i></button>
+  </div>
+  <div id="cartItems" class="cart-items"><div class="cart-empty">Your basket is empty.</div></div>
+  <div class="cart-footer">
+    <div class="cart-notice">Prices exclude courier costs — confirmed before dispatch.</div>
+    <button id="checkoutBtn" class="checkout-btn">Proceed to Checkout</button>
+  </div>
+</aside>
+
+<!-- Checkout Modal -->
+<div id="checkoutModal" class="checkout-modal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 style="margin:0;font-family:'Cormorant Garamond',serif;font-size:1.5rem">Your Order</h3>
+      <button id="coClose" class="icon-btn"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body">
+      <section class="order-summary">
+        <h4 style="margin:0 0 1rem;font-family:'Cormorant Garamond',serif;font-size:1.2rem">Items</h4>
+        <div id="coItems"></div>
+      </section>
+      <form id="checkoutForm" class="checkout-form">
+        <div class="form-row">
+          <div><label>Full Name *</label><input id="fullName" name="fullName" placeholder="Name & Surname" required></div>
+          <div><label>Cellphone *</label><input id="phone" name="phone" type="tel" placeholder="+27 ..." required></div>
+        </div>
+        <div class="form-row">
+          <div><label>Email *</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+          <div><label>Notes</label><input id="notes" name="notes" placeholder="Colour preferences, deadlines…"></div>
+        </div>
+        <div class="toggle"><input id="giftWrap" name="giftWrap" type="checkbox"><label for="giftWrap">Add gift packaging & handwritten note</label></div>
+        <div class="toggle"><input id="isCompany" name="isCompany" type="checkbox"><label for="isCompany">Buying as a company?</label></div>
+        <div id="companyFields" style="display:none">
+          <div class="form-row">
+            <div><label>Company Name</label><input id="companyName" name="companyName"></div>
+            <div><label>VAT Number</label><input id="vatNumber" name="vatNumber"></div>
+          </div>
+        </div>
+        <div class="toggle"><input id="ackShipping" type="checkbox" required><label for="ackShipping">I understand courier costs are confirmed separately before dispatch.</label></div>
+        <div class="submit-row">
+          <button type="submit" class="checkout-btn" id="submitOrderBtn">Submit Order</button>
+          <span class="note">We'll confirm via WhatsApp or email.</span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div id="productModal" class="pm-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="pm-card">
+    <button id="pmClose" class="pm-close">×</button>
+    <div class="pm-grid">
+      <div class="pm-left">
+        <div class="pm-image-wrap">
+          <button class="pm-nav pm-prev">‹</button>
+          <img id="pmImage" alt="">
+          <button class="pm-nav pm-next">›</button>
+        </div>
+        <div id="pmThumbs" class="pm-thumbs"></div>
+      </div>
+      <div class="pm-right">
+        <h3 id="pmName"></h3>
+        <div class="pm-code">Code: <span id="pmCode">—</span></div>
+        <div id="pmPrice" class="pm-price"></div>
+        <p id="pmDesc" class="pm-desc"></p>
+        <div class="pm-ctas">
+          <button id="pmAddToCart" class="btn"><i class="fas fa-shopping-bag"></i> Add to Basket</button>
+          <button id="pmGoToCheckout" class="btn-outline">Checkout</button>
+        </div>
+        <a id="pmWhatsApp" href="#" target="_blank" class="pm-wa">
+          <i class="fab fa-whatsapp"></i> Order via WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand-name">Satara <em>Crafts</em></span>
+        <p>Handcrafted with love in South Africa. Every piece tells a story — find yours in our collection.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+          <a href="https://wa.me/27825716750"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Collections</a>
+        <a href="story.html">Our Story</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get in Touch</h4>
+        <a href="https://wa.me/27825716750"><i class="fab fa-whatsapp"></i> +27 82 571 6750</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Send a Message</a>
+        <p style="font-family:'Montserrat',sans-serif;font-size:.8rem;color:rgba(249,245,240,.4);margin-top:.75rem;line-height:1.5">Mon–Fri: 09:00–17:00<br>Sat: 09:00–13:00 SAST</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Satara Crafts. All rights reserved.</span>
+      <span>Handcrafted with ♥ in South Africa</span>
+    </div>
+  </div>
+</footer>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>

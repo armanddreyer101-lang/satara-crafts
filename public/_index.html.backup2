@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satara Crafts | Handcrafted Luxury</title>
+  <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  <style>
+    /* Homepage-specific styles */
+    .hero {
+      background: linear-gradient(rgba(58, 46, 38, 0.7), rgba(58, 46, 38, 0.7)), 
+                  url('assets/images/background.png');
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--cream);
+      padding: 0 2rem;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.2;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+      font-style: italic;
+      display: block;
+    }
+
+    .hero p {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 1.5rem auto 2.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-gold {
+      background: var(--gold);
+      color: #fff;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .btn-gold:hover {
+      background: var(--dark-gold);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .feature-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--chocolate);
+      margin-bottom: 1rem;
+    }
+
+    .section-title span {
+      color: var(--gold);
+    }
+
+    .section-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--light-chocolate);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .carousel {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 1rem 0;
+      max-width: 900px;
+    }
+    .carousel::-webkit-scrollbar {
+      display: none; /* Hides scrollbar for a cleaner look */
+    }
+
+    .feature-card {
+      background: #fff;
+      padding: 2.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.03);
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 0 1rem;
+      color: var(--chocolate);
+    }
+
+    .feature-card p {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--light-chocolate);
+      line-height: 1.7;
+    }
+
+    .cta-section {
+      background: var(--chocolate);
+      color: var(--cream);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .cta-section .section-title {
+      color: var(--cream);
+    }
+
+    .cta-section .section-subtitle {
+      color: var(--taupe);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-top: 2rem;
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--chocolate);
+    }
+
+    footer {
+      background: var(--dark-cream);
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--chocolate);
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--light-chocolate);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      color: var(--light-chocolate);
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--gold);
+    }
+
+    .copyright {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--light-chocolate);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="luxury-overlay"></div>
+<style>
+  .sc-nav {
+    position: sticky; top: 0; z-index: 900;
+    background: rgba(249, 245, 240, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--taupe);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .sc-nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 500;
+    color: var(--chocolate); text-decoration: none;
+    letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .sc-nav-logo span { color: var(--gold); font-style: italic; }
+  .sc-nav-links {
+    display: flex; align-items: center; gap: 0.25rem;
+    list-style: none; margin: 0; padding: 0;
+  }
+  .sc-nav-links a {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem; font-weight: 400; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--light-chocolate);
+    text-decoration: none; padding: 0.5rem 1rem;
+    border-radius: 30px; transition: color 0.25s ease, background 0.25s ease;
+    position: relative;
+  }
+  .sc-nav-links a:hover { color: var(--chocolate); background: var(--dark-cream); }
+  .sc-nav-links a.active { color: var(--gold); font-weight: 500; }
+  .sc-nav-links a.active::after {
+    content: ''; position: absolute; bottom: 2px; left: 50%;
+    transform: translateX(-50%); width: 20px; height: 2px;
+    background: var(--gold); border-radius: 2px;
+  }
+  .sc-nav-links .nav-shop-btn {
+    background: var(--gold); color: #fff !important;
+    padding: 0.5rem 1.4rem; border-radius: 30px; margin-left: 0.5rem;
+  }
+  .sc-nav-links .nav-shop-btn:hover {
+    background: var(--dark-gold) !important;
+    color: #fff !important; transform: translateY(-1px);
+  }
+  .sc-nav-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 0.5rem; flex-direction: column; gap: 5px;
+  }
+  .sc-nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--chocolate); border-radius: 2px; transition: all 0.3s ease;
+  }
+  @media (max-width: 768px) {
+    .sc-nav { padding: 0 1.25rem; }
+    .sc-nav-toggle { display: flex; }
+    .sc-nav-links {
+      position: absolute; top: 68px; left: 0; right: 0;
+      background: rgba(249, 245, 240, 0.98);
+      border-bottom: 1px solid var(--taupe);
+      flex-direction: column; align-items: stretch; gap: 0;
+      padding: 1rem 1.25rem 1.5rem; display: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .sc-nav-links.open { display: flex; }
+    .sc-nav-links a { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.9rem; }
+    .sc-nav-links .nav-shop-btn { margin: 0.5rem 0 0; text-align: center; }
+  }
+</style>
+<nav class="sc-nav" aria-label="Main navigation">
+  <a href="index.html" class="sc-nav-logo">Satara <span>Crafts</span></a>
+  <button class="sc-nav-toggle" aria-label="Toggle menu"
+    onclick="const ul=this.nextElementSibling;ul.classList.toggle('open');this.setAttribute('aria-expanded',ul.classList.contains('open'));">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="sc-nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="gallery.html">Collections</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="gallery.html" class="nav-shop-btn">Shop Now</a></li>
+  </ul>
+</nav>
+<script>
+  (function(){
+    const page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.sc-nav-links a:not(.nav-shop-btn)').forEach(a => {
+      if(a.getAttribute('href') === page || (page==='' && a.getAttribute('href')==='index.html'))
+        a.classList.add('active');
+    });
+  })();
+</script>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Satara <span>Crafts</span></h1>
+    <p>Each handcrafted piece tells a story of tradition, passion, and timeless elegance</p>
+    <a href="gallery.html" class="btn-gold">Explore Collections</a>
+  </section>
+
+  <!-- Featured Carousel Section -->
+  <section class="carousel-section">
+    <h2 class="section-title">Featured <span>Artworks</span></h2>
+    <div class="carousel-container">
+      <button class="carousel-arrow left" onclick="scrollCarousel(-1)">&#10094;</button>
+      <div class="carousel" id="carousel">
+        <!-- Carousel items (images, titles) will be inserted by JS or hardcoded below -->
+        <div class="carousel-item">
+          <img src="assets/images/Donkies.png" alt="Handpainted">
+          <div class="carousel-caption">-Handpainted Coffee/Ice Tea Set-</div>
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/blik.png" alt="Tin Cookie Jar">
+          <div class="carousel-caption">-Tin Handpainted Gift-</div>
+        </div>
+        <div class="carousel-item">
+          <img src="assets/images/proteas.png" alt="Chopping Board Art">
+          <div class="carousel-caption">-Printed Chopping Board Art-</div>
+        </div>
+        <!-- Add more items as needed -->
+      </div>
+      <button class="carousel-arrow right" onclick="scrollCarousel(1)">&#10095;</button>
+    </div>
+  </section>
+  <!-- Gallery Grid Preview Section -->
+  <section class="gallery-preview-section">
+    <h2 class="section-title">Browse <span>Gallery</span></h2>
+    <div class="gallery-preview-grid">
+      <div class="preview-card">
+        <img src="assets/images/Donkies.png" alt="Handpainted">
+        <div class="preview-caption">Fat Lady Handpainted</div>
+      </div>
+      <div class="preview-card">
+        <img src="assets/images/blik.png" alt="Tin Cookie Jar">
+        <div class="preview-caption">Gin Glass Blue</div>
+      </div>
+      <div class="preview-card">
+        <img src="assets/images/proteas.png" alt="Chopping Board Art">
+        <div class="preview-caption">Chopping Board Art</div>
+      </div>
+      <!-- Add more preview cards, up to 6 or 8 -->
+    </div>
+    <a href="gallery.html" class="btn-gold" style="margin-top:2rem;">View Full Gallery</a>
+  </section>
+<!-- Features Section -->
+  <section class="feature-section">
+    <h2 class="section-title">Artistic <span>Craftsmanship</span></h2>
+    <p class="section-subtitle">Discover the meticulous attention to detail that goes into every one of our handcrafted pieces</p>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-hand-sparkles"></i>
+        </div>
+        <h3>Handcrafted</h3>
+        <p>Every piece is individually crafted by skilled artisans using traditional techniques passed down through generations.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-gem"></i>
+        </div>
+        <h3>Premium Materials</h3>
+        <p>We source only the finest materials, ensuring each creation meets our exacting standards of quality and beauty.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fas fa-heart"></i>
+        </div>
+        <h3>Made with Love</h3>
+        <p>Each creation is infused with the passion and dedication of our artisans, making every piece truly special.</p>
+      </div>
+    </div>
+  </section>
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2 class="section-title">Begin Your <span>Collection</span></h2>
+    <p class="section-subtitle">Join our community of collectors who appreciate the artistry and soul of handmade luxury</p>
+    <a href="gallery.html" class="btn-outline">View Gallery</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">Satara <span>Crafts</span></div>
+    
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Collections</a>
+      <a href="story.html">Our Story</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    
+    <div class="social-links">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-pinterest"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+    </div>
+    
+    <p class="copyright">&copy; 2025 Satara Crafts. All rights reserved.</p>
+  </footer>
+</body>
+<script>
+function scrollCarousel(dir) {
+  const carousel = document.getElementById('carousel');
+  const item = carousel.querySelector('.carousel-item');
+  const scrollAmount = item ? item.offsetWidth + 32 : 300; // 32px = gap (2rem)
+  carousel.scrollBy({left: dir * scrollAmount, behavior: 'smooth'});
+}
+</script>
+<script type="module" src="firebase/firebase.js"></script>
+<script type="module" src="scripts/main.js"></script>
+</html>
