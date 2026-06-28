@@ -493,7 +493,7 @@ async function doLogin() {
   const err   = document.getElementById('loginError');
   err.style.display = 'none';
   try {
-    const res  = await fetch(`${PB}/api/admins/auth-with-password`, {
+    const res  = await fetch(`${PB}/api/collections/_superusers/auth-with-password`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ identity: email, password: pass })
@@ -525,7 +525,7 @@ async function showApp() {
 
 // Auto-login if token exists
 if (token) {
-  fetch(`${PB}/api/admins/auth-refresh`, {
+  fetch(`${PB}/api/collections/_superusers/auth-refresh`, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${token}` }
   }).then(r => r.ok ? showApp() : doLogout()).catch(doLogout);
