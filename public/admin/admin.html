@@ -544,7 +544,7 @@ async function loadStats() {
   document.getElementById('statEnquiries').textContent = ed.totalItems  || 0;
 
   // New orders
-  const newRes  = await fetch(`${PB}/api/collections/orders/records?filter=status='new'`, { headers: auth() });
+  const newRes  = await fetch(`${PB}/api/collections/orders/records?filter=status%3D'new'`, { headers: auth() });
   const newData = await newRes.json();
   document.getElementById('statNew').textContent = newData.totalItems || 0;
 }
