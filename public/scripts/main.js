@@ -310,11 +310,42 @@ async function submitOrder(order) {
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify(order)
     });
-    return res.ok;
+    if (!res.ok) return null;
+    return await res.json(); // includes the new record's id
   } catch (e) {
     console.error('Order save failed:', e);
-    return false;
+    return null;
   }
+}
+
+// Redirects the browser to PayFast to complete payment for a saved order
+async function redirectToPayfast(order, orderId) {
+  const res = await fetch('/api/payfast-checkout', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      order_id:  orderId,
+      amount:    order.total,
+      item_name: `Satara Crafts order #${orderId}`,
+      name:      order.customer_name,
+      email:     order.customer_email
+    })
+  });
+  if (!res.ok) throw new Error('Could not start PayFast checkout');
+  const { action, fields } = await res.json();
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = action;
+  Object.entries(fields).forEach(([key, value]) => {
+    const input = document.createElement('input');
+    input.type  = 'hidden';
+    input.name  = key;
+    input.value = value;
+    form.appendChild(input);
+  });
+  document.body.appendChild(form);
+  form.submit();
 }
 
 // ==================== Product Modal ====================
@@ -508,14 +539,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     const btn   = e.target.querySelector('[type=submit]');
     btn.textContent = 'Sending…';
     btn.disabled    = true;
-    const ok = await submitOrder(order);
-    if (ok) {
-      cart = []; saveCart(); renderCart(); closeCheckout();
-      showToast('Order received! We will be in touch shortly.', 4000);
-
-      // WhatsApp confirmation
-      const waMsg = `Hi! I just placed an order on Satara Crafts.\nName: ${order.customer_name}\nTotal: ${currency(order.total)}\nItems: ${order.items_json.map(i=>i.name).join(', ')}`;
-      setTimeout(() => window.open(`https://wa.me/27000000000?text=${encodeURIComponent(waMsg)}`, '_blank'), 1000);
+    const record = await submitOrder(order);
+    if (record) {
+      btn.textContent = 'Redirecting to payment…';
+      try {
+        cart = []; saveCart(); renderCart(); closeCheckout();
+        await redirectToPayfast(order, record.id);
+        return; // page is navigating away, no need to reset the button
+      } catch (err) {
+        console.error(err);
+        showToast('Order saved, but payment could not start. We will contact you.', 5000);
+      }
     } else {
       showToast('Something went wrong. Please try WhatsApp or email.', 4000);
     }
